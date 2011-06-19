@@ -1,21 +1,39 @@
-;;better good enough using old guess and new guess to approximate when to stop
-(define (better-good-enough? old-guess new-guess)
-  (< (abs (- old-guess new-guess)) 0.001))
+(define (average x y)
+  (/ (+ x y) 2))
+;Value: average
 
-;;new sqrt-iter using better good-enough?
-(define (newer-sqrt-iter guess x)
-  (if (better-good-enough? guess (improve guess x))
+;;test
+(= 6 (average 1 11))
+;Value: #t
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+;Value: improve
+
+;;test
+(improve 1 16)
+;Value: 17/2
+
+(improve 1.0 16)
+;Value: 8.5
+
+(define (good-enough? guess new-guess)
+  (< (/ (abs (- guess new-guess)) guess)
+     0.0001))
+;Value: good-enough?
+
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess (improve guess x))
       guess
-      (newer-sqrt-iter (improve guess x)
-		       x)))
+      (sqrt-iter (improve guess x) x)))
+;Value: sqrt-iter
 
-;;new sqrt 
-(define (newer-sqrt x) (newer-sqrt-iter 1.0 x))
+(define (sqrt x) (sqrt-iter 1.0 x))
+;Value: sqrt
 
-;;Tests
-(newer-sqrt 2.0)
+(sqrt 2)
 ;Value: 1.4142156862745097
 
-(newer-sqrt 0.00000002)
-;Value: 1.9565371278841633e-3
-
+(sqrt 0.0001)
+;Value: 1.0000714038711746e-2
