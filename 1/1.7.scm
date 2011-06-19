@@ -17,14 +17,14 @@
 (improve 1.0 16)
 ;Value: 8.5
 
-(define (good-enough? guess new-guess)
-  (< (/ (abs (- guess new-guess)) guess)
+(define (good-enough? guess x)
+  (< (/ (abs (- guess (improve guess x))) guess)
      0.0001))
 ;Value: good-enough?
 
 
 (define (sqrt-iter guess x)
-  (if (good-enough? guess (improve guess x))
+  (if (good-enough? guess x)
       guess
       (sqrt-iter (improve guess x) x)))
 ;Value: sqrt-iter
