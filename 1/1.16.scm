@@ -1,3 +1,5 @@
+;; Oops, my 1.16 is linear. TODO: Need to find log n.
+
 (define (exp b n)
   (define (exponent-iter a n)
     (cond ((= n 0) a)
