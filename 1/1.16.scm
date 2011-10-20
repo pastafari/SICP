@@ -1,16 +1,20 @@
-;; Oops, my 1.16 is linear. TODO: Need to find log n.
+;;An iterative method for fast-exponentiation
+;;using the insight that ((b^2)^n) = (b ^ (2n))
 
-(define (exp b n)
-  (define (exponent-iter a n)
-    (cond ((= n 0) a)
-	  ((= n 1) (* a b))
-	  (else (exponent-iter (* a (* b b)) (- n 2)))))
-  (exponent-iter 1 n))
+(define (fast-expt b n)
+  (define (fast-expt-iter product b n)
+    (cond ((= n 0) product)
+	  ((even? n) (fast-expt-iter product (* b b) (/ n 2)))
+	  (else (fast-expt-iter (* product b) b (- n 1)))))
 
-(exp 3 3)
-;; Value 27
+  (fast-expt-iter 1 b n))
 
-(exp 2 5)
-;; Value 32
+(fast-expt 2 5)
+;;Value: 32
+
+(fast-expt 3 4)
+;;Value: 81
+
+
 
 

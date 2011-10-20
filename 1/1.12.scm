@@ -1,4 +1,4 @@
-(define (pascals-triangle-number x y)
+         (define (pascals-triangle-number x y)
   (cond ((= y 0) 1)
 	((= x y) 1)
 	(else (+ (pascals-triangle-number (- x 1) y)
